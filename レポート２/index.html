@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tag Portraits</title>
+    <link rel="preconnect" href="https://picsum.photos">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Tag Portraits">
+        <span class="brand-mark">TP</span>
+        <span>
+          <strong>Tag Portraits</strong>
+          <small>写真に、自分だけの見え方を残す</small>
+        </span>
+      </a>
+      <nav class="nav-actions" aria-label="ページ内メニュー">
+        <a href="#gallery">見る</a>
+        <a href="#admin">投稿</a>
+        <a href="#report">レポート</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="intro">
+        <div class="intro-copy">
+          <h1>プロフ帳管理アプリ</h1>
+          <p>
+            名前、学年、SP、誕生日、MBTI、自由タグをまとめて見られる画像投稿アプリです。
+            閲覧者はコメント欄ではなく、自分のメモとタグで投稿の見え方を編集します。
+          </p>
+        </div>
+        <div class="hero-image" aria-label="サンプル写真のコラージュ">
+          <img src="https://picsum.photos/seed/tag-portraits-a/760/520" alt="白黒写真のサンプル">
+          <div class="hero-note">
+            <strong>#企画</strong>
+            <span>#チーム制作 #記録係 #春生まれ</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" id="gallery" aria-label="検索と絞り込み">
+        <div class="section-heading">
+          <p class="eyebrow">gallery</p>
+          <h2>投稿一覧</h2>
+        </div>
+
+        <div class="toolbar">
+          <label class="field wide">
+            <span>検索</span>
+            <input id="searchInput" type="search" placeholder="名前・タグを入力">
+          </label>
+          <label class="field">
+            <span>一致</span>
+            <select id="matchMode">
+              <option value="partial">部分一致</option>
+              <option value="exact">完全一致</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>カテゴリ</span>
+            <select id="categoryFilter">
+              <option value="all">全体</option>
+              <option value="grade">学年</option>
+              <option value="sp">SP</option>
+            </select>
+          </label>
+          <label class="field" id="gradeWrap">
+            <span>学年</span>
+            <select id="gradeFilter">
+              <option value="all">すべて</option>
+              <option value="一年">一年</option>
+              <option value="二年">二年</option>
+              <option value="三年">三年</option>
+              <option value="四年">四年</option>
+            </select>
+          </label>
+          <label class="field" id="spWrap">
+            <span>SP</span>
+            <select id="spFilter"></select>
+          </label>
+          <label class="field">
+            <span>並び替え</span>
+            <select id="sortMode">
+              <option value="kana">あいうえお順</option>
+              <option value="birthday">誕生日順</option>
+              <option value="updated">更新順</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="人気タグ">
+        <div>
+          <strong id="resultCount">0</strong>
+          <span>件を表示中</span>
+        </div>
+        <div class="popular-tags" id="popularTags"></div>
+      </section>
+
+      <section class="grid" id="profileGrid" aria-live="polite"></section>
+
+      <section class="admin" id="admin">
+        <div class="section-heading">
+          <p class="eyebrow">admin only</p>
+          <h2>管理人投稿</h2>
+          <p>パスワードはデモ用に <strong>admin</strong>。投稿内容はこのブラウザに保存されます。</p>
+        </div>
+
+        <form id="adminForm" class="admin-form">
+          <label class="field">
+            <span>管理パスワード</span>
+            <input id="adminPassword" type="password" placeholder="admin">
+          </label>
+          <label class="field">
+            <span>名前</span>
+            <input id="nameInput" required placeholder="例: 佐藤 ひかり">
+          </label>
+          <label class="field">
+            <span>よみ</span>
+            <input id="kanaInput" required placeholder="例: さとうひかり">
+          </label>
+          <label class="field">
+            <span>学年</span>
+            <select id="gradeInput">
+              <option>一年</option>
+              <option>二年</option>
+              <option>三年</option>
+              <option>四年</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>SP</span>
+            <select id="spInput"></select>
+          </label>
+          <label class="field">
+            <span>誕生日</span>
+            <input id="birthdayInput" type="date" required>
+          </label>
+          <label class="field">
+            <span>MBTI</span>
+            <input id="mbtiInput" maxlength="4" placeholder="例: ENFP">
+          </label>
+          <label class="field wide">
+            <span>画像URL</span>
+            <input id="imageInput" type="url" placeholder="https://...">
+          </label>
+          <label class="field wide">
+            <span>画像ファイル</span>
+            <input id="imageFileInput" type="file" accept="image/*">
+          </label>
+          <label class="field wide">
+            <span>初期タグ（10個まで）</span>
+            <input id="tagsInput" placeholder="写真, 企画, 春生まれ">
+          </label>
+          <button class="primary-button" type="submit">投稿する</button>
+        </form>
+      </section>
+
+      <section class="report" id="report">
+        <div class="section-heading">
+          <p class="eyebrow">report memo</p>
+          <h2>提出レポート用メモ</h2>
+        </div>
+        <div class="report-box">
+          <p><strong>作品名:</strong> Tag Portraits</p>
+          <p><strong>使用言語:</strong> JavaScript / HTML / CSS</p>
+          <p><strong>概要:</strong> 管理人だけが画像を投稿し、閲覧者は各投稿に自分用のハッシュタグや一言メモを付けられるプロフィール型画像アーカイブ。</p>
+          <p><strong>工夫:</strong> 人気タグ・部分一致の類似タグ提案、名前とタグの完全一致 / 部分一致検索、あいうえお順・誕生日順・更新順の並び替えを実装。</p>
+          <p><strong>改善案:</strong> 本番ではFirebaseなどを使い、管理人認証と閲覧者ごとの保存をサーバー側で行う。</p>
+        </div>
+      </section>
+    </main>
+
+    <template id="cardTemplate">
+      <article class="profile-card">
+        <div class="card-head">
+          <h3></h3>
+          <button class="ghost-button edit-toggle" type="button">編集</button>
+        </div>
+        <div class="tag-list"></div>
+        <img class="profile-image" alt="">
+        <p class="viewer-note"></p>
+        <div class="edit-panel" hidden>
+          <label class="field">
+            <span>自分用タグを追加</span>
+            <input class="tag-editor" placeholder="例: 相談したい">
+          </label>
+          <div class="suggestions"></div>
+          <label class="field">
+            <span>一言メモ</span>
+            <textarea class="note-editor" rows="3" placeholder="この人について覚えておきたいこと"></textarea>
+          </label>
+          <button class="primary-button save-edit" type="button">保存</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
